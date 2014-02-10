@@ -1,6 +1,6 @@
-TGTOUT = chatserver
-export SRCDIR = ${BASE}/server
-export BLDDIR = ${BUILD}/server
+TGTOUT = chatclient
+export SRCDIR = ${BASE}/client
+export BLDDIR = ${BUILD}/client
 
 
 .PHONY: all clean ${SUBDIR} 

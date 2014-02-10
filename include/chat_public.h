@@ -36,7 +36,7 @@ extern UINT32 gcurrentprintlevel;
 
 #define LOG(level,fmt,arg...) do{\
     if(level >= gcurrentprintlevel ) {\
-        printf("File %s Fun%s Line %d"fmt"\n",__FILE__,__FUNCTION__,__LINE__,##arg);}\
+        printf("File: %s Fun:%s Line: %d"fmt"\n",__FILE__,__FUNCTION__,__LINE__,##arg);}\
 }while(0)
 
 

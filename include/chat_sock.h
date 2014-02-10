@@ -30,7 +30,7 @@ static inline INT32  chat_sock_init(CHAT_SOCK *pstSock)
         LOG(LOG_ERROR,"sock has open!");
         goto errorout;
     }
-    if(0 <= (pstSock->sock_fd = socket(pstSock->domain,pstSock->type,pstSock->protocol)))
+    if(0 >= (pstSock->sock_fd = socket(pstSock->domain,pstSock->type,pstSock->protocol)))
     {
         LOG(LOG_ERROR,"sock create error:%s ",strerror(errno));
         goto errorout;

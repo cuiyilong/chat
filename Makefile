@@ -7,26 +7,30 @@ MAKE=make
 MYCFLAGS=-Wall -g
 MYCFLAGS+=-I${BASE}/include
 export MYCFLAGS
-ALL_MODULES=server 
+ALL_MODULES_MK=${shell find ${BASE}/rules/ -name "*.mk" -printf "%f "}
+ALL_MODULES=${ALL_MODULES_MK:.mk=}
+ifeq (${M},)
+	M:=${ALL_MODULES}
+endif
 
 .PHONY: all clean install rebuild 
 default:all
-all :  ${ALL_MODULES} 
-	@echo "start compiling $^ "
+all: ${M}  
+.PHONY:${ALL_MODULES} 
+${ALL_MODULES}:
+	@echo "start compiling ${ALL_MODULES} "
 	@[ -d ${BUILD} ] || mkdir -p {BUILD}
-	${MAKE} -C ${BUILD} -f ${BASE}/rules/$^.mk  $@ 
+	${MAKE} -C ${BUILD} -f ${BASE}/rules/$@.mk  all
 
-install:${ALL_MODULES}
+install:
+	$(foreach mod,${M},${MAKE} -C ${BUILD} -f ${BASE}/rules/${mod}.mk install;)
+clean: 
+	@echo "start clean  "
+	$(foreach mod,${M},${MAKE} -C ${BUILD} -f ${BASE}/rules/${mod}.mk clean;)
 
-	${MAKE} -C ${BUILD} -f ${BASE}/rules/$^.mk  $@
-
-clean: ${ALL_MODULES}
-	@echo "start clean  $^ "
-	${MAKE} -C ${BUILD} -f ${BASE}/rules/$^.mk  $@
-
+rebuild:
+	$(foreach mod,${M},${MAKE} -C ${BUILD} -f ${BASE}/rules/${mod}.mk clean;)
+	$(foreach mod,${M},${MAKE} -C ${BUILD} -f ${BASE}/rules/${mod}.mk all;)
 	
-
-
-
 
 

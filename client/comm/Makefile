@@ -1,16 +1,19 @@
-SRCDIR = ${shell pwd}
-SRC = ${wildcard ${SRCDIR}/*.c}
-OBJS = ${patsubst ${SRCDIR}/%.c,${SRCDIR}/%.o, ${wildcard ${SRCDIR}/*.c}}
 
+TGTDIR = ${BLDDIR}/${TARGET} 
+
+MYSRCDIR = ${SRCDIR}/${TARGET}
+SRC = ${wildcard ${MYSRCDIR}/*.c}
+OBJS = ${patsubst ${MYSRCDIR}/%.c,${BLDDIR}/${TARGET}/%.o, ${wildcard ${MYSRCDIR}/*.c}}
 .PHONY: all clean  
-all : prepare ${OBJS}
+all : prepared ${OBJS}
 
-${OBJS}:  
-	${CC} -c -o $@ ${SRC} ${MYCFLAGS}
+${OBJS}: ${SRC}
+	${CC} -c ${SRC} -o $@ ${MYCFLAGS}
 
-.PHONY: prepare
-prepare:
-	@echo "prepare start"
-	@echo "14${MYCFLAGS}"
+prepared:
+	@[ -d ${BLDDIR}/${TARGET} ] || mkdir -p ${BLDDIR}/${TARGET}
+clean:
+	-rm ${TGTDIR}/*.o 
+
 		
 
