@@ -18,8 +18,8 @@ typedef struct __chat_sock{
 
 static inline INT32  chat_sock_init(CHAT_SOCK *pstSock)
 {
-    struct sockaddr *pstaddr;
     /*support ipv4,   ipv6 to be continued*/
+    LOG(LOG_OFF,"sock init!");
     if(!pstSock)
     {
         LOG(LOG_ERROR,"sock null!");
@@ -36,12 +36,7 @@ static inline INT32  chat_sock_init(CHAT_SOCK *pstSock)
         goto errorout;
     }
     
-    pstaddr = (struct sockaddr *)&pstSock->u.addr_v4;
-    if( 0 > (bind(pstSock->sock_fd,pstaddr,sizeof(struct sockaddr_in))))
-    {
-        LOG(LOG_ERROR,"sock bind error!");
-        goto errorout;
-    }
+  
     return TRUE;
 errorout:
     close(pstSock->sock_fd);
@@ -49,6 +44,18 @@ errorout:
     return FALSE;
 }
 
+
+static inline INT32  chat_sock_bind(CHAT_SOCK *pstSock)
+{
+    struct sockaddr *pstaddr;
+    pstaddr = (struct sockaddr *)&pstSock->u.addr_v4;
+    if( 0 > (bind(pstSock->sock_fd,pstaddr,sizeof(struct sockaddr_in))))
+    {
+        LOG(LOG_ERROR,"sock bind error!");
+        return FALSE;
+    }
+    return TRUE;
+}
 static inline INT32  chat_sock_recv(CHAT_SOCK *pstSock)
 {
     return TRUE;

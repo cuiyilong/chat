@@ -4,6 +4,7 @@ void main(int agrc,char *argv[])
 {
     printf("start!:\n");
     chat_server_comm_init();
+    
 
     return;
 }

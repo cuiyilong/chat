@@ -15,8 +15,9 @@ CHAT_SOCK stChatSock[SOCKET_MAX];
 /*init communication socket*/
 INT32 chat_server_comm_init(void)
 {
-    struct sockaddr addr_v4;
-    INT8 aucBuf[BUFMAX] = {0};
+    struct sockaddr addr;
+    struct sockaddr_in client_addr;
+    MSG stMsg;
     INT32 datalen;
     INT32 from_len;
     /**/
@@ -32,15 +33,25 @@ INT32 chat_server_comm_init(void)
         return FALSE;
     }
 
+    if(FALSE== chat_sock_bind(&stChatSock[0]))
+    {
+        LOG(LOG_ERROR,"udp socket init   fail!");
+        return FALSE;
+    }
+
     while(1)
     {
         /*recv form client*/
-        if((datalen = recvfrom(stChatSock[0].sock_fd,aucBuf,BUFMAX,0,&addr_v4,(socklen_t *)(&from_len)))< 0)
+        if((datalen = recvfrom(stChatSock[0].sock_fd,&stMsg,sizeof(MSG),0,(struct sockaddr *)&client_addr,(socklen_t *)(&from_len)))< 0)
         {
             LOG(LOG_ERROR,"udp recv data fail : datalen %d error %s! ",datalen,strerror(errno));
         };
+       
+        
+            LOG(LOG_INFO,"recv msg from :%s Client IP:%s  len is %d!",stMsg.name,inet_ntoa(client_addr.sin_addr),from_len);
+        
+        
 
-        //LOG(LOG_OFF,"udp recv data  : addr :"IP_FMT" port %d datalen %d data %s! ",addr_v4.sin_port,datalen,aucBuf);
     }
 }
 
