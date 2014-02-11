@@ -6,6 +6,7 @@ export CC=gcc
 MAKE=make
 MYCFLAGS=-Wall -g
 MYCFLAGS+=-I${BASE}/include
+MYCFLAGS+=-lpthread
 export MYCFLAGS
 ALL_MODULES_MK=${shell find ${BASE}/rules/ -name "*.mk" -printf "%f "}
 ALL_MODULES=${ALL_MODULES_MK:.mk=}

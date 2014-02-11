@@ -14,9 +14,15 @@ void main(int argc,char *argv[])
         LOG(LOG_ERROR,"sock init fail");
         return;
     }
-    if(FALSE ==  chat_client_comm_check())
+    if(FALSE ==  chat_client_comm_check_udp())
     {
-        LOG(LOG_OFF,"check fail !");
+        LOG(LOG_OFF,"check udp fail !");
+        return;
+    }
+
+    if(FALSE ==  chat_client_comm_check_tcp())
+    {
+        LOG(LOG_OFF,"check tcp fail !");
         return;
     }
 

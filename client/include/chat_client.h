@@ -4,7 +4,8 @@
 #include "chat_sock.h"
 
 INT32 chat_client_comm_init(INT8 *addr);
-INT32 chat_client_comm_check(void);
+INT32 chat_client_comm_check_udp(void);
+INT32 chat_client_comm_check_tcp(void);
 
 
 #endif

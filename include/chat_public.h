@@ -15,8 +15,13 @@
 #include <arpa/inet.h>/*for byteorder*/
 
 
+#include <pthread.h>/*for muliti thread*/
+
+
 #include "chat_types.h"
 #include "chat_msg.h"
+
+
 
 
 
@@ -25,7 +30,9 @@
 #define SOCKET_MAX 10
 
 
-#define CHAT_CONTROL_PORT 5678
+#define CHAT_CONTROL_TCP_PORT 8766
+#define CHAT_CONTROL_UDP_PORT 5678
+
 
 /*print level*/
 #define LOG_OFF 0
