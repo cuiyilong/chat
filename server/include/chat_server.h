@@ -2,6 +2,7 @@
 #define __CHAT_SERVER_H__
 #include "chat_public.h"
 #include "chat_sock.h"
+#include "chat_sqlite.h"
 
 
 INT32 chat_server_comm_init(void);

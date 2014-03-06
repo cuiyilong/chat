@@ -2,12 +2,22 @@
 export BASE=${shell pwd}
 export BUILD=${BASE}/build
 export APP=${BASE}/app
+export PREFIX=app
 export CC=gcc 
+
+export LD_LIBRARY_PATH=${BASE}${PREFIX}/lib
+
 MAKE=make
 MYCFLAGS=-Wall -g
 MYCFLAGS+=-I${BASE}/include
+MYCFLAGS+=-I${APP}/include
+
 MYCFLAGS+=-lpthread
 export MYCFLAGS
+
+MYLIBS+=-lsqlite3
+export MYLIBS
+
 ALL_MODULES_MK=${shell find ${BASE}/rules/ -name "*.mk" -printf "%f "}
 ALL_MODULES=${ALL_MODULES_MK:.mk=}
 ifeq (${M},)
@@ -16,7 +26,7 @@ endif
 
 .PHONY: all clean install rebuild 
 default:all
-all: ${M}  
+all: prepare ${M}  
 .PHONY:${ALL_MODULES} 
 ${ALL_MODULES}:
 	@echo "start compiling ${ALL_MODULES} "
@@ -32,6 +42,9 @@ clean:
 rebuild:
 	$(foreach mod,${M},${MAKE} -C ${BUILD} -f ${BASE}/rules/${mod}.mk clean;)
 	$(foreach mod,${M},${MAKE} -C ${BUILD} -f ${BASE}/rules/${mod}.mk all;)
-	
+distclean:
+	$(foreach mod,${M},${MAKE} -C ${BUILD} -f ${BASE}/rules/${mod}.mk distclean;)
 
+
+prepare:
 

@@ -4,13 +4,13 @@
 #define PASSWD_LEN 16
 
 
-typedef struct __chat_user{
-    INT32 userglobalid;
+typedef struct __user_base_info{
+
     INT8 username[NAME_LEN];
     INT8 userpasswd[PASSWD_LEN];
     INT32 userstate;
 
-}chat_user;
+}user_base_info;
 
 
 

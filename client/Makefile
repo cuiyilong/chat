@@ -12,11 +12,11 @@ all: prepared ${SUBDIR}
 ${SUBDIR}:
 	${MAKE} -C ${SRCDIR}/$@ all TARGET=$@
 install:
-	cp ${TGTOUT} ${APP}/
+	cp ${TGTOUT} ${APP}/bin
 clean: 
 	-rm `find ${BLDDIR} -name '*.o'`
 	-rm ${TGTOUT}
-	-rm ${APP}/chatclient
+	-rm ${APP}/bin/chatclient
 distclean:
 
 prepared:

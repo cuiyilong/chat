@@ -22,6 +22,9 @@
 #include "chat_msg.h"
 
 
+#include <sqlite3.h> 
+
+
 
 
 
@@ -40,11 +43,10 @@
 #define LOG_ERROR 2
 #define LOG_DETAIL 3
 
-extern UINT32 gcurrentprintlevel;
+
 
 #define LOG(level,fmt,arg...) do{\
-    if(level >= gcurrentprintlevel ) {\
-        printf("File: %s Fun:%s Line: %d:  "fmt"\n",__FILE__,__FUNCTION__,__LINE__,##arg);}\
+        printf("File: %s Fun:%s Line: %d:  "fmt"\n",__FILE__,__FUNCTION__,__LINE__,##arg);\
 }while(0)
 
 #define HERE printf("File: %s Fun:%s Line: %d:  \n",__FILE__,__FUNCTION__,__LINE__);

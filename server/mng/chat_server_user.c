@@ -3,23 +3,34 @@
 
 
 
-void chat_server_user_init()
+
+#if 0
+INT32 user_register()
+{
+}
+
+INT32 user_unregister()
+{
+}
+
+INT32 user_login()
+{
+}
+
+INT32 user_logout()
 {
 }
 
 
-INT32 chat_server_user_register()
+void user_init()
+{
+	
+}
+
+void user_clean()
 {
 }
 
-
-INT32 chat_server_user_login()
-{
-}
-
-INT32 chat_server_user_logout()
-{
-}
-
+#endif
 
 
